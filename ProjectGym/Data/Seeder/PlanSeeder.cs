@@ -49,7 +49,8 @@ namespace ProjectGym.Data.Seeder
             };
 
                 await dbContext.Plans.AddRangeAsync(plans);
-                await dbContext.SaveChangesAsync();
+                await dbContext.SaveChangesAsync(); 
+
             }
         }
     }

@@ -34,7 +34,7 @@ namespace ProjectGym.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Plans_Name",
                 table: "Plans",
-                column: "Name",
+                column: "Name", 
                 unique: true);
         }
 
