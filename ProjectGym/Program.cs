@@ -1,3 +1,5 @@
+using ProjectGym.Data.Seeder;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -12,8 +14,6 @@ if (!app.Environment.IsDevelopment())
 }
 app.UseRouting();
 
-app.UseAuthorization();
-
 app.MapStaticAssets();
 
 app.MapControllerRoute(
@@ -21,5 +21,6 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}")
     .WithStaticAssets();
 
+await DataBaseSeeder.SeedAllAsync();
 
 app.Run();
