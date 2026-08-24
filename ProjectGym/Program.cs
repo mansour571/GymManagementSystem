@@ -1,4 +1,4 @@
-using ProjectGym.Data.Seeder;
+using GymManagementSystem.DataAccess.Data.Seeder;
 
 var builder = WebApplication.CreateBuilder(args);
 

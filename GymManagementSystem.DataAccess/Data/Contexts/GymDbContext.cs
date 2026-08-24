@@ -1,7 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
-using ProjectGym.Models;
+﻿using GymManagementSystem.DataAccess.Models;
+using Microsoft.EntityFrameworkCore;
 
-namespace ProjectGym.Data.Contexts
+namespace GymManagementSystem.DataAccess.Data.Contexts
 {
     public class GymDbContext : DbContext
     {

@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using GymManagementSystem.DataAccess.Data.Contexts;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using ProjectGym.Data.Contexts;
 
-namespace ProjectGym.Controllers
+namespace GymManagementSystem.Presentation.Controllers
 {
     public class PlanController : Controller
     {

@@ -1,8 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using GymManagementSystem.DataAccess.Models;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using ProjectGym.Models;
 
-namespace ProjectGym.Data.Configrations
+namespace GymManagementSystem.DataAccess.Data.Configrations
 {
     public class PlanConfigration : IEntityTypeConfiguration<Plan>
     {

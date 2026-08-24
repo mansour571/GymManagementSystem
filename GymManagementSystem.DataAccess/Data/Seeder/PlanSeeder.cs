@@ -1,8 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
-using ProjectGym.Data.Contexts;
-using ProjectGym.Models;
+﻿using GymManagementSystem.DataAccess.Data.Contexts;
+using GymManagementSystem.DataAccess.Models;
+using Microsoft.EntityFrameworkCore;
 
-namespace ProjectGym.Data.Seeder
+namespace GymManagementSystem.DataAccess.Data.Seeder
 {
     internal static class PlanSeeder
     {
