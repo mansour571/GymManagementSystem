@@ -1,10 +1,12 @@
-﻿namespace GymManagementSystem.DataAccess.Data.Seeder
+﻿using GymManagementSystem.DataAccess.Data.Contexts;
+
+namespace GymManagementSystem.DataAccess.Data.Seeder
 {
     public class DataBaseSeeder
     {
-        public static async Task SeedAllAsync()
+        public static async Task SeedAllAsync(GymDbContext dbContext)
         {
-            await PlanSeeder.SeedAsync();
+            await PlanSeeder.SeedAsync(dbContext);
         }
     }
 }

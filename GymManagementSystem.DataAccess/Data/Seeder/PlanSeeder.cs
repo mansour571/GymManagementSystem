@@ -6,9 +6,8 @@ namespace GymManagementSystem.DataAccess.Data.Seeder
 {
     internal static class PlanSeeder
     {
-        internal static async Task SeedAsync()
+        internal static async Task SeedAsync(GymDbContext dbContext)
         {
-            using var dbContext = new GymDbContext();
 
             if (!await dbContext.Plans.AnyAsync())
             {
