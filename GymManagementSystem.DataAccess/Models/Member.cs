@@ -1,0 +1,14 @@
+﻿namespace GymManagementSystem.DataAccess.Models
+{
+    public class Member : User
+    {
+        public string? Photo { get; set; } 
+        public DateTime JoinDate { get; set; }
+        
+        public HealthRecord HealthRecord { get; set; }
+
+        public ICollection<Booking> Bookings { get; set; } = [];
+        public ICollection<MemberShip> MemberShips { get; set; } = [];
+
+    }
+}

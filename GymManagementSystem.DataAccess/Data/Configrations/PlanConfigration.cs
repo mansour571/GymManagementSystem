@@ -26,6 +26,8 @@ namespace GymManagementSystem.DataAccess.Data.Configrations
             builder.HasIndex(p => p.Name)
                 .IsUnique();
 
+            builder.HasQueryFilter(p => !p.IsDeleted);
+
         }
     }
 }

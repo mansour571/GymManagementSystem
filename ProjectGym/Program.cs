@@ -1,5 +1,6 @@
 using GymManagementSystem.DataAccess.Data.Contexts;
 using GymManagementSystem.DataAccess.Data.Seeder;
+using GymManagementSystem.DataAccess.InterceptorsSENTINEL;
 using GymManagementSystem.DataAccess.Repositories;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,12 +9,17 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+
 builder.Services.AddScoped<IPlanRepository, PlanRepository>();
 //builder.Services.AddKeyedScoped<PlanRepository>("PlanRepo");
 
-builder.Services.AddDbContext<GymDbContext>(options =>
+
+builder.Services.AddSingleton<AuditSaveChangesInterceptor>();
+
+builder.Services.AddDbContext<GymDbContext>((sp,options) =>
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
+           .AddInterceptors(sp.GetRequiredService<AuditSaveChangesInterceptor>());
 });
 
 var app = builder.Build();
@@ -22,7 +28,7 @@ var app = builder.Build();
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-}
+} 
 
 app.MapStaticAssets();
 

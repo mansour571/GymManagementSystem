@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GymManagementSystem.DataAccess.Data.Seeder
 {
-    internal static class PlanSeeder
+    public static class PlanSeeder
     {
-        internal static async Task SeedAsync(GymDbContext dbContext)
+        public static async Task SeedAsync(GymDbContext dbContext)
         {
 
             if (!await dbContext.Plans.AnyAsync())

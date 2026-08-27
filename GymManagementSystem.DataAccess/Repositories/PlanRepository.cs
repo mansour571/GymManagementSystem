@@ -5,9 +5,8 @@ using Microsoft.EntityFrameworkCore;
 namespace GymManagementSystem.DataAccess.Repositories
 {
 
-    public class PlanRepository : IPlanRepository
+    public class PlanRepository(GymDbContext dbContext) : IPlanRepository
     {
-        public GymDbContext dbContext = new GymDbContext();
 
         public void Add(Plan plan) 
             => dbContext.Add(plan);
