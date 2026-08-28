@@ -28,6 +28,8 @@ namespace GymManagementSystem.DataAccess.Data.Contexts
         public DbSet<Plan> Plans { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<User> Users { get; set; } // This will include both Members and Trainers using TPH (Table Per Hierarchy) inheritance strategy
+        public DbSet<Trainer> Trainers { get; set; } // This is optional, but can be useful if you want to query only trainers directly
+        public DbSet<Member> Members { get; set; } // This is optional, but can be useful if you want to query only members directly
         public DbSet<HealthRecord> HealthRecords { get; set; }
         public DbSet<Session> Sessions { get; set; }
         public DbSet<MemberShip> MemberShips { get; set; }

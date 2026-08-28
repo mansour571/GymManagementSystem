@@ -11,7 +11,7 @@ namespace GymManagementSystem.DataAccess.Data.Configrations
     {
         public void Configure(EntityTypeBuilder<Booking> builder)
         {
-            builder.Ignore(b => b.Id);
+            builder.HasKey(b => b.Id);
 
             builder.Property(b => b.CreatedAt)
                 .HasColumnName("BookingDate")
@@ -21,7 +21,14 @@ namespace GymManagementSystem.DataAccess.Data.Configrations
                 .IsRequired()
                 .HasDefaultValue(false);
 
-            builder.HasKey(x => new {x.MemberId, x.SessionId});
+            builder.HasIndex(x => new
+            {
+                x.MemberId,
+                x.SessionId
+            })
+                .IsUnique()
+                .HasFilter("[IsDeleted] = 0"); // Unique constraint for MemberId and SessionId, excluding soft-deleted records
+
 
             builder.HasOne(b => b.Member)
                    .WithMany(m => m.Bookings)

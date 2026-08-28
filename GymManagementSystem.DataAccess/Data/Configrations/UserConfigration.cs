@@ -17,6 +17,11 @@ namespace GymManagementSystem.DataAccess.Data.Configrations
             builder.Property(u => u.Phone)
                 .HasMaxLength(20);
 
+            builder.Property(u => u.Gender)
+                   .HasConversion<string>()
+                   .HasMaxLength(10)
+                   .IsRequired();
+
             builder.OwnsOne(u => u.Address, addressBuilder =>
             {
                 addressBuilder.Property(a => a.City)

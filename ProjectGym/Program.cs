@@ -1,8 +1,7 @@
 using GymManagementSystem.DataAccess.Data.Contexts;
 using GymManagementSystem.DataAccess.Data.Seeder;
-using GymManagementSystem.DataAccess.InterceptorsSENTINEL;
-using GymManagementSystem.DataAccess.Repositories;
 using Microsoft.EntityFrameworkCore;
+using GymManagementSystem.DataAccess.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,17 +9,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 
-builder.Services.AddScoped<IPlanRepository, PlanRepository>();
-//builder.Services.AddKeyedScoped<PlanRepository>("PlanRepo");
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
+    ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 
-
-builder.Services.AddSingleton<AuditSaveChangesInterceptor>();
-
-builder.Services.AddDbContext<GymDbContext>((sp,options) =>
-{
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
-           .AddInterceptors(sp.GetRequiredService<AuditSaveChangesInterceptor>());
-});
+builder.Services.AddGymDataAccess(connectionString);
 
 var app = builder.Build();
 
@@ -39,11 +31,14 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}")
     .WithStaticAssets();
 
-await using var scope = app.Services.CreateAsyncScope();
+if (app.Environment.IsDevelopment())
+{
+    await using var scope = app.Services.CreateAsyncScope();
 
-var dbContext = scope.ServiceProvider
-    .GetRequiredService<GymDbContext>();
+    var dbContext = scope.ServiceProvider.GetRequiredService<GymDbContext>();
 
-await DataBaseSeeder.SeedAllAsync(dbContext);
+    await dbContext.Database.MigrateAsync();
 
+    await DataBaseSeeder.SeedAllAsync(dbContext);
+}
 app.Run();
