@@ -2,7 +2,7 @@
 {
     public class Booking : BaseEntity
     {
-        public DateTime Date { get; set; }
+        // BookingDate = CreatesAt of BaseEntity
         public bool Attended { get; set; }
 
         public int MemberId { get; set; }

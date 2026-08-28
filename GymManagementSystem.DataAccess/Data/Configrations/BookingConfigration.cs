@@ -11,30 +11,27 @@ namespace GymManagementSystem.DataAccess.Data.Configrations
     {
         public void Configure(EntityTypeBuilder<Booking> builder)
         {
+            builder.Ignore(b => b.Id);
+
+            builder.Property(b => b.CreatedAt)
+                .HasColumnName("BookingDate")
+                .HasDefaultValueSql("GETDATE()");
+
             builder.Property(b => b.Attended)
                 .IsRequired()
                 .HasDefaultValue(false);
 
+            builder.HasKey(x => new {x.MemberId, x.SessionId});
 
             builder.HasOne(b => b.Member)
-                .WithMany(m => m.Bookings)
-                .HasForeignKey(b => b.MemberId)
-                .OnDelete(DeleteBehavior.Restrict);
+                   .WithMany(m => m.Bookings)
+                   .HasForeignKey(b => b.MemberId)
+                   .OnDelete(DeleteBehavior.Restrict);
 
-            builder.HasIndex(b => new
-            {
-                b.MemberId,
-                b.SessionId
-            }).IsUnique();
-
-            builder.ToTable(t =>
-            {
-                t.HasCheckConstraint(
-                    "CK_Booking_Date",
-                    "[Date] >= GETDATE()"
-                );
-            });
-
+            builder.HasOne(b => b.Session)
+                   .WithMany(s => s.Bookings)
+                   .HasForeignKey(b => b.SessionId)
+                   .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasQueryFilter(b => !b.IsDeleted);
         }

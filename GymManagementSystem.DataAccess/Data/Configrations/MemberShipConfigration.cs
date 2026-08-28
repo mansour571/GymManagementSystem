@@ -8,6 +8,10 @@ namespace GymManagementSystem.DataAccess.Data.Configrations
     {
         public void Configure(EntityTypeBuilder<MemberShip> builder)
         {
+            builder.HasKey(x => x.Id);
+
+            builder.Property(x => x.CreatedAt)
+                .HasColumnName("StartDate");
 
             builder.ToTable(t =>
             {

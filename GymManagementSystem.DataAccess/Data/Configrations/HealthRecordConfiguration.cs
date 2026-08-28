@@ -14,6 +14,9 @@ namespace GymManagementSystem.DataAccess.Data.Configrations
             builder.Property(hr => hr.Weight)
                    .HasPrecision(5, 2);
 
+            builder.Property(x => x.Note)
+                   .HasMaxLength(500);
+
             builder.Property(hr => hr.BloodType)
                    .HasConversion<string>()
                    .HasMaxLength(20)
