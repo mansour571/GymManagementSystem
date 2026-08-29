@@ -1,12 +1,13 @@
 ﻿using GymManagementSystem.DataAccess.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System.Reflection.Emit;
 
 namespace GymManagementSystem.DataAccess.Data.Configrations
 {
-    public class UserConfigration<T> : IEntityTypeConfiguration<T> where T : User
+    public class UserConfigration : IEntityTypeConfiguration<User> 
     {
-        public virtual void Configure(EntityTypeBuilder<T> builder)
+        public void Configure(EntityTypeBuilder<User> builder) 
         {
            builder.Property(u => u.Name)
                 .HasMaxLength(100);
@@ -49,6 +50,12 @@ namespace GymManagementSystem.DataAccess.Data.Configrations
                 "LEN([Phone]) = 11 AND [Phone] LIKE '01[0125]%'"
                 );
             });
+
+            builder.HasDiscriminator<string>("UserType")
+               .HasValue<Trainer>("Trainer")
+               .HasValue<Member>("Member");
+
+            builder.HasQueryFilter(u => !u.IsDeleted); // any Query on User will automatically filter out deleted users
 
         }
 

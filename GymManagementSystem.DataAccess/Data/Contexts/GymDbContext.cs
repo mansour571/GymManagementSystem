@@ -13,14 +13,6 @@ namespace GymManagementSystem.DataAccess.Data.Contexts
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(GymDbContext).Assembly);
-
-            modelBuilder.Entity<User>()
-                .HasDiscriminator<string>("UserType")
-                .HasValue<Trainer>("Trainer")
-                .HasValue<Member>("Member");
-
-            modelBuilder.Entity<User>()
-            .HasQueryFilter(u => !u.IsDeleted); // any Query on User will automatically filter out deleted users
         }
 
         #region DbSets

@@ -1,16 +1,16 @@
 ﻿using GymManagementSystem.DataAccess.Models;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace GymManagementSystem.DataAccess.Data.Configrations
 {
-    public class MemberConfigration : UserConfigration<Member>
+    public class MemberConfigration : IEntityTypeConfiguration<Member>
     {
-        public override void Configure(EntityTypeBuilder<Member> builder)
+        public void Configure(EntityTypeBuilder<Member> builder)
         {
-            base.Configure(builder);
-
             builder.Property(m => m.Photo)
                 .HasMaxLength(500);
         }
     }
+
 }
